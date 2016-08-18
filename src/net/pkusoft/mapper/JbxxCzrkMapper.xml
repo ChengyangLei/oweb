@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.JbxxCzrkMapper">
+	<!-- 将表字段与实体属性一一对应 -->
+	<resultMap type="net.pkusoft.model.JbxxCzrk" id="JbxxCzrkMap">
+		<id column="rkbm" property="rkbm"/>
+		<result column="gmsfhm" property="gmsfhm"/>
+		<result column="xb" property="xb"/>
+		<result column="mz" property="mz"/>
+		<result column="csrq" property="csrq"/>
+		<result column="csdgjdq" property="csdgjdq"/>
+		<result column="csdssxq" property="csdssxq"/>
+	</resultMap>
+	
+	<select id="getTotalNum" resultType="int">
+		select count(rkbm) from jbxx_czrk 
+	</select>
+	
+	<select id="getJbxxCzrkById" parameterType="int" resultMap="JbxxCzrkMap">
+		select * from jbxx_czrk where rkbm = #{rkbm}
+	</select>
+	
+	<select id="getJbxxCzrkList" parameterType="java.util.HashMap" resultType="net.pkusoft.model.JbxxCzrk">
+		select * from jbxx_czrk
+		limit #{start}, #{rowCount}
+	</select>
+
+
+</mapper>

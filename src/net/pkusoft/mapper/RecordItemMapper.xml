@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.RecordItemMapper">
+    <resultMap id="BaseResultMap" type="net.pkusoft.model.RecordItem" >
+        <id column="item_id" property="itemId" jdbcType="DECIMAL" />
+        <result column="list_id" property="listId" jdbcType="DECIMAL" />
+        <result column="icon" property="icon" jdbcType="VARCHAR" />
+        <result column="label_icon" property="labelIcon" jdbcType="VARCHAR" />
+        <result column="label_text" property="labelText" jdbcType="VARCHAR" />
+        <result column="text" property="text" jdbcType="VARCHAR" />
+        <result column="addtime" property="addtime" jdbcType="VARCHAR" />
+        <result column="visible" property="visible" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getTotalNum" resultType="int">
+        select count(item_id) from record_item 
+    </select>
+    
+    <select id="getRecordItemById" parameterType="string" resultMap="BaseResultMap">
+        select * from record_item where item_id = #{itemId}
+    </select>
+    
+    <select id="getRecordItemList"  resultMap="BaseResultMap">
+        select * from record_item order by addtime 
+    </select>
+    <select id="getRecordItemListByListId" parameterType="int" resultMap="BaseResultMap">
+        select * from record_item where List_id = #{listId} order by addtime 
+    </select>
+
+    <insert id="insert"  parameterType="net.pkusoft.model.RecordItem" useGeneratedKeys="true" keyProperty="itemId">
+        insert into record_item (
+            list_id,
+            icon,
+            label_icon,
+            label_text,
+            text,
+            addtime,
+            visible
+        )
+        values(
+            #{listId},        
+			#{icon},
+			#{labelIcon},
+			#{labelText},
+			#{text},
+			#{addtime},
+			#{visible}
+        )
+    </insert> 
+    
+    <update id="update"  parameterType="net.pkusoft.model.RecordItem">
+        update record_item
+        <set> 
+            <if test="listId != null"> 
+                list_id =#{listId}, 
+            </if> 
+            <if test="icon != null"> 
+                icon =#{icon}, 
+            </if> 
+            <if test="labelIcon != null"> 
+                label_icon =#{labelIcon}, 
+            </if> 
+            <if test="labelText != null"> 
+                label_text =#{labelText}, 
+            </if> 
+            
+            <if test="text != null"> 
+                text = #{text} 
+            </if> 
+            <if test="addtime != null"> 
+                addtime = #{addtime} 
+            </if> 
+            <if test="visible != null"> 
+                visible = #{visible} 
+            </if>          
+        </set>  
+        where item_id = #{itemId}
+    </update>
+
+</mapper>

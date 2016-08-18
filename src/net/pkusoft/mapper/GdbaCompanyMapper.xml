@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.GdbaCompanyMapper">
+	<resultMap id="BaseResultMap" type="net.pkusoft.model.GdbaCompany" >
+        <id column="gsmc" property="gsmc" jdbcType="DECIMAL" />
+        <result column="user_id" property="userId" jdbcType="DECIMAL" />
+        <result column="gsmc" property="gsmc" jdbcType="VARCHAR" />
+        <result column="gsxz" property="gsxz" jdbcType="VARCHAR" />
+        <result column="glrs" property="glrs" jdbcType="DECIMAL" />
+        <result column="zczj" property="zczj" jdbcType="DECIMAL" />
+        <result column="yyzz" property="yyzz" jdbcType="VARCHAR" />
+        <result column="gsdzssxq" property="gsdzssxq" jdbcType="VARCHAR" />
+        <result column="gsdzxz" property="gsdzxz" jdbcType="VARCHAR" />
+        <result column="gsxqpcs" property="gsxqpcs" jdbcType="VARCHAR" />
+        <result column="jyfw" property="jyfw" jdbcType="VARCHAR" />
+    </resultMap>
+	<select id="getTotalNum" resultType="int">
+		select count(gsbm) from gdba_company 
+	</select>
+	
+	<select id="getGdbaCompanyById" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_company where gsbm = #{gsbm}
+	</select>
+	<select id="getGdbaCompanyByUserId" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_company where user_id = #{userId}
+	</select>
+	
+	<select id="getGdbaCompanyList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select * from gdba_company
+		limit #{start}, #{rowCount}
+	</select>
+
+	<insert id="insert"  parameterType="net.pkusoft.model.GdbaCompany" useGeneratedKeys="true" keyProperty="gsbm">
+		insert into gdba_company (
+			<!-- gsbm, -->
+			user_id,
+			gsmc,
+			gsxz,
+			glrs,
+			zczj,
+			yyzz,
+			gsdzssxq,
+			gsdzxz,
+			gsxqpcs,
+			jyfw
+		)
+		values(
+			<!-- #{gsbm}, -->
+			#{userId},
+			#{gsmc},
+			#{gsxz},
+			#{glrs},
+			#{zczj},
+			#{yyzz},
+			#{gsdzssxq},
+			#{gsdzxz},
+			#{gsxqpcs},
+			#{jyfw}
+		)
+	</insert> 
+	
+	<update id="update"  parameterType="net.pkusoft.model.GdbaCompany">
+		update gdba_company
+		set 
+			user_id = #{userId},
+			gsmc = #{gsmc},
+			gsxz = #{gsxz},
+			glrs = #{glrs},
+			zczj = #{zczj},
+			yyzz = #{yyzz},
+			gsdzssxq = #{gsdzssxq},
+			gsdzxz = #{gsdzxz},
+			gsxqpcs = #{gsxqpcs},
+			jyfw = #{jyfw}
+			
+		where gsbm = #{gsbm}
+	</update>
+
+</mapper>

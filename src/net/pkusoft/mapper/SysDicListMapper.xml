@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.SysDicListMapper">
+    <resultMap id="BaseResultMap" type="net.pkusoft.model.SysDicList" >
+        <id column="dic_name" property="dicName" jdbcType="VARCHAR" />
+        <result column="dic_desc" property="dicDesc" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="getTotalNum" resultType="int">
+        select count(dic_name) from sys_dic_list 
+    </select>
+    
+    <select id="getSysDicListById" parameterType="string" resultMap="BaseResultMap">
+        select * from sys_dic_list where dic_name = #{dicName}
+    </select>
+    
+    <select id="getSysDicListList"  resultMap="BaseResultMap">
+        select * from sys_dic_list
+    </select>
+
+
+</mapper>

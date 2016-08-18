@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.SysDicItemMapper">
+	<resultMap id="BaseResultMap" type="net.pkusoft.model.SysDicItem" >
+	   <id column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+	   <result column="DIC_NAME" property="dicName" jdbcType="VARCHAR" />
+	   <result column="ITEM_CODE" property="itemCode" jdbcType="VARCHAR" />
+	   <result column="ITEM_VALUE" property="itemValue" jdbcType="VARCHAR" />
+	   <result column="ITEM_SPELL" property="itemSpell" jdbcType="VARCHAR" />
+	   <result column="ITEM_ASPELL" property="itemAspell" jdbcType="VARCHAR" />
+ 	</resultMap>
+	<select id="getTotalNum" resultType="int">
+		select count(item_id) from sys_dic_item 
+	</select>
+	
+	<select id="getSysDicItemById" parameterType="int" resultMap="BaseResultMap">
+		select * from sys_dic_item where ITEM_ID = #{itemId}
+	</select>
+	
+	<select id="getSysDicItemList" parameterType="string" resultMap="BaseResultMap">
+		select * from sys_dic_item where DIC_NAME = #{dicName} and VISIBLE = '1'
+	</select>
+
+
+</mapper>
