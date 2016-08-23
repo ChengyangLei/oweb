@@ -4,9 +4,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>500</title>
+<style>
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		font-family: Arial;
+	}
+	h1 {
+		font-size: 100px;
+		color: #d9534f;
+		font-weight: normal;
+	}
+	p {
+		font-size: 24px;
+		color: #666; 
+	}
+	.container {
+		margin-top: 100px;
+		text-align: center;	
+	}
+</style>
 </head>
 <body>
-	500
+	<div class="container">
+		<h1>500</h1>
+	</div>
 </body>
 </html>

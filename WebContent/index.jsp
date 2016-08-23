@@ -6,7 +6,7 @@
 </head>
 <body>
 	<script>
-		location = "static/dev/apps/framework/index.html";
+		location = "/static/dev/apps/framework/index.html";
 	</script>
 </body>
 </html>

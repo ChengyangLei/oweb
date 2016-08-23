@@ -32,7 +32,7 @@ public class SysUserController {
 	
 	@RequestMapping("/user/login/index")
 	public String loginIndex( ) {
-		return "redirect:/dev/apps/framework/pages/example/login1.html";
+		return "redirect:/static/dev/apps/framework/pages/example/login1.html";
 	}
 	
 	@ResponseBody
