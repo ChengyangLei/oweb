@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>  
+
+<decorators defaultdir="/WEB-INF/layouts/"> <!-- 指定 装饰器模板（pkuframework.jsp）的目录  -->
+
+    <!-- 此处用来定义不需要过滤的页面（不需要装饰的页面） -->  
+
+    <excludes>  
+		<pattern>/static/*</pattern>
+		<pattern>/gdba/reg/template/*</pattern>
+    </excludes>  
+
+  
+
+ 	<!-- 用来定义装饰器要过滤的页面（需要装饰的页面） -->  
+
+    <decorator name="pkuframework" page="pkuframework.jsp">  
+
+        <pattern>/*</pattern>  
+
+    </decorator>  
+
+</decorators>  

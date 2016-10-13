@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>执法监督</title>
+    <script>
+        window.onload = function () {
+            removeOverlay();
+        };
+        window.setTimeout( function () {
+            removeOverlay();
+        }, 8000 );
+        function removeOverlay() {
+            document.getElementById( "bodyLoadingOverlay" ).style.display = "none";
+            document.body.setAttribute( "class", "" );
+        }
+    </script>
+    <title></title>
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+    <script src="../../../dev/modules/lib/ie/respond.js"></script>
+    <script src="../../../dev/modules/lib/ie/html5shiv.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="../../../dev/modules/ui/css/pku.css"/>
+    <link rel="stylesheet" href="css/style.css?VERSION=v0.20160909"/>
+    <script data-main="../../../dev/modules/" src="../../../dev/modules/require.js"></script>
+    <script >
+        var VERSION,
+                DEV_MODE
+                ;
+        DEV_MODE = false;
+        VERSION = DEV_MODE ? (new Date()).getTime() : "v0.20160909";
+        require.config( {
+            urlArgs: "VERSION=" + VERSION,
+            paths: {
+                "jquery": "jquery/jquery-1.11.3",
+                "xDomainRequest": "jquery/jQuery.XDomainRequest",
+                "ajaxQueue": "jquery/jQuery.ajaxQueue",
+                "doT": "utils/doT",
+                "draggable": "utils/draggable",
+                "bootstrap": "lib/bootstrap/js/bootstrap",
+
+                "datepicker": "lib/datepicker/js/bootstrap-datepicker-zh.fix",
+
+                "select2": "lib/select2/js/select2.full.fix",
+
+                "echarts": "lib/echart/echarts.min",
+                "echartsTheme": "lib/echart/theme/macarons",
+                "echartsChinaMap": "lib/echart/map/china",
+
+                "formvalidation": "lib/formvalidate/js/formValidation.fix",
+                "formvalidationBs": "lib/formvalidate/js/framework/bootstrap.fix",
+                "formvalidationI18N": "lib/formvalidate/js/language/zh_CN",
+
+                "webuploader": "lib/webuploader/js/webuploader.fix",
+
+                "bootgrid": "lib/bootgrid/js/jquery.bootgrid.fix",
+                "colresizable": "lib/colresizable/colResizable-1.6",
+
+                "select-area": "lib/select-area/select-area",
+                "select-area-data": "lib/select-area/select-area-data",
+
+                "fixrecord": "lib/custom/fixrecord",
+
+                // 代码美化
+                "code-pretty": "lib/pretty/prettify.min"
+            },
+            map: {
+                '*': {
+                    'css': 'utils/css/css',
+                    'text': 'utils/text'
+                }
+            },
+            shim : {
+                "datepicker": [ "jquery"],
+                "select2": [ "jquery", "xDomainRequest"],
+                "bootstrap": [ "jquery"],
+                "formvalidation": [ "jquery", "bootstrap" ],
+                "formvalidationBs": [ "formvalidation" ],
+                "formvalidationI18N": [ "formvalidation", "formvalidationBs" ],
+                "webuploader": [ "css!lib/webuploader/css/webuploader.css" ],
+                "colresizable": [ "jquery" ],
+                "bootgrid": [ "css!lib/bootgrid/css/jquery.bootgrid.css" , "bootstrap", "colresizable"],
+                "select-area": ["css!lib/select-area/css/select-area.css" ],
+                "code-pretty": [ "css!lib/pretty/prettify.css" ]
+            },
+            // 超时
+            waitSeconds: 150
+        } );
+    </script>
+    <script src="js/main.js"></script>
+</head>
+<body class="modal-open">
+
+<div class="overlay" id="bodyLoadingOverlay">
+    <i class="fa fa-spin fa-spinner"></i>
+</div>
+
+<div class="page page-index">
+
+    <!-- top -->
+    <div class="top">
+
+        <div class="logo-container clearfix ">
+            <a href="#" class="logo"><img src="images/logo.png" alt="logo"/></a>
+            <p class="title">武汉市公安局执法监督管理平台</p>
+        </div>
+
+        <ul class="function-list clearfix">
+            <li class="function-item"><span class="icon icon-user"></span>当前用户：市局某某</li>
+            <li class="function-item"><a href="#"><span class="icon icon-supervision"></span>监督中心</a></li>
+            <li class="function-item"><a href="#"><span class="icon icon-password"></span>修改密码</a></li>
+            <li class="function-item"><a href="#"><span class="icon icon-logout"></span>注销</a></li>
+        </ul>
+
+    </div>
+    <!-- /top -->
+
+    <!-- header -->
+    <div class="header">
+        <div class="statistics-item">
+            <div class="item-label">接警</div>
+            <div class="item-num"><span>12</span></div>
+        </div>
+        <div class="statistics-item">
+            <div class="item-label">处警</div>
+            <div class="item-num"><span>123</span></div>
+        </div>
+        <div class="accept-case">
+            <div class="title">受立案率</div>
+            <div class="datetime">
+                <div class="date">2016.10.09</div>
+                <div class="time">12:34:56</div>
+            </div>
+            <div class="progress-group-list progress-group-list-high pull-left">
+                <div class="progress-group">
+                    <span class="label-p">洪山</span>
+                    <span class="percent">91%</span>
+                    <div class="progress progress-info"> <div class="progress-bar" style="width: 91%;"></div> </div>
+                </div>
+                <div class="progress-group">
+                    <span class="label-p">江汉</span>
+                    <span class="percent">87%</span>
+                    <div class="progress progress-info"> <div class="progress-bar" style="width: 87%;"></div> </div>
+                </div>
+                <div class="progress-group">
+                    <span class="label-p">沌口</span>
+                    <span class="percent">72%</span>
+                    <div class="progress progress-info"> <div class="progress-bar" style="width: 72%;"></div> </div>
+                </div>
+            </div>
+            <div class="progress-group-list progress-group-list-low pull-right">
+                <div class="progress-group">
+                    <span class="label-p">沌阳</span>
+                    <span class="percent">11%</span>
+                    <div class="progress progress-danger"> <div class="progress-bar" style="width: 11%;"></div> </div>
+                </div>
+                <div class="progress-group">
+                    <span class="label-p">蔡甸</span>
+                    <span class="percent">22%</span>
+                    <div class="progress progress-danger"> <div class="progress-bar" style="width: 22%;"></div> </div>
+                </div>
+                <div class="progress-group">
+                    <span class="label-p">硚口</span>
+                    <span class="percent">33%</span>
+                    <div class="progress progress-danger"> <div class="progress-bar" style="width: 33%;"></div> </div>
+                </div>
+            </div>
+        </div>
+        <div class="statistics-item pull-right">
+            <div class="item-label">行政案件<br/>受案</div>
+            <div class="item-num"><span>12345</span></div>
+        </div>
+        <div class="statistics-item pull-right">
+            <div class="item-label">刑事案件<br/>立案</div>
+            <div class="item-num"><span>123456</span></div>
+        </div>
+    </div>
+    <!-- /header -->
+
+    <!-- content -->
+    <div class="content">
+
+        <div class="row-1 clearfix">
+            <!-- 案管中心 -->
+            <div class="module module-1-1 pull-left">
+                <div class="module-heading"><i class="module-heading-icon"></i>案管中心
+                    <div class="chkbox-list pull-right chkbox-list-ajpm">
+                        <div class="chkbox-item active"><i class="chkbox-icon"></i><span class="chkbox-txt">已建卷</span></div>
+                        <div class="chkbox-item"><i class="chkbox-icon"></i><span class="chkbox-txt">已数字化</span></div>
+                        <div class="chkbox-item"><i class="chkbox-icon"></i><span class="chkbox-txt">已入柜</span></div>
+                    </div>
+                    <a href="#" class="module-max"></a>
+                </div>
+                <div class="module-body">
+                    <!-- 案管中心 - 案卷总数 -->
+                    <div class="module-body-data">
+                        <div class="ajzs">
+                            <div class="ajzs-total">案卷总数<span class="num">1000</span>件</div>
+                            <div class="ajzs-item"><i class="icon icon-blue"></i>刑事案件</div>
+                            <div class="ajzs-item"><i class="icon icon-orange"></i>行政案件</div>
+                            <div class="ajzs-chart-pie" id="ajzs-chart-pie">
+
+                            </div>
+                        </div>
+                        <table class="ajtj">
+                            <tr class="ajtj-header">
+                                <td></td>
+                                <td>总数</td>
+                                <td>本日</td>
+                                <td>本周</td>
+                                <td>本月</td>
+                            </tr>
+                            <tr class="ajtj-item">
+                                <td><span class="lab">已数字化</span></td>
+                                <td class="text-right">
+                                    <div class="progress-group">
+                                        <span class="percent">123</span>
+                                        <div class="progress progress-warning"> <div class="progress-bar" style="width: 91%;"></div> </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">123</td>
+                                <td class="text-center">3456</td>
+                                <td class="text-center">45678</td>
+                            </tr>
+                            <tr class="ajtj-item">
+                                <td><span class="lab">已入柜</span></td>
+                                <td class="text-right">
+                                    <div class="progress-group">
+                                        <span class="percent">123456</span>
+                                        <div class="progress progress-warning"> <div class="progress-bar" style="width: 20%;"></div> </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">1234</td>
+                                <td class="text-center">34567</td>
+                                <td class="text-center">456789</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- /案管中心 - 案卷总数 -->
+
+                    <!-- 案管中心 - 案卷排名 -->
+                    <div class="module-body-rank">
+                        <div class="ajpm-list rank-list">
+                            <div class=" rank-item"><span class="lab">东西湖</span><span class="cont">567890</span></div>
+                            <div class=" rank-item"><span class="lab">江夏</span><span class="cont">456789</span></div>
+                            <div class=" rank-item"><span class="lab">东新</span><span class="cont">345678</span></div>
+                            <div class=" rank-item"><span class="lab">青山</span><span class="cont">234567</span></div>
+                            <div class=" rank-item"><span class="lab">江汉</span><span class="cont">123456</span></div>
+                        </div>
+                    </div>
+                    <!-- /案管中心 - 案卷排名 -->
+                </div>
+            </div>
+            <!-- /案管中心 -->
+
+            <!-- 执法音视频 -->
+            <div class="module module-1-2 pull-right">
+                <div class="module-heading"><i class="module-heading-icon"></i>执法音视频<a href="#" class="module-max"></a></div>
+                <div class="module-body">
+                    <!-- 执法音视频 - 排名 -->
+                    <div class="module-body-rank">
+                        <div class="rank-list">
+                            <div class="rank-item"><span class="cont">567890</span><span class="lab">武昌</span></div>
+                            <div class="rank-item"><span class="cont">456789</span><span class="lab">江夏</span></div>
+                            <div class="rank-item"><span class="cont">345678</span><span class="lab">东新</span></div>
+                            <div class="rank-item"><span class="cont">234567</span><span class="lab">青山</span></div>
+                            <div class="rank-item"><span class="cont">123456</span><span class="lab">江汉</span></div>
+                        </div>
+                    </div>
+                    <!-- /执法音视频 - 排名 -->
+
+                    <!-- 执法音视频 - 视频 -->
+                    <div class="module-body-radio">
+                        <video id="video-zf" class="video" style="width: 100%; height: 100%;" controls>
+                            <!--
+                            <source src="http://www.helloweba.com/demo/html5video/movie.mp4" type="video/mp4" />
+                            <source src="http://www.w3school.com.cn/example/html5/mov_bbb.mp4" type="video/mp4" />
+                            -->
+                        </video>
+                        <div class="video-control">
+                            <a href="#" class="control-btn control-btn-prev" title="上一个"><i class="fa fa-chevron-circle-left"></i></a>
+                            <a href="#" class="control-btn control-btn-next" title="下一个"><i class="fa fa-chevron-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- /执法音视频 - 视频 -->
+                </div>
+            </div>
+            <!-- /执法音视频 -->
+        </div>
+
+        <div class="row-2 clearfix">
+            <!-- 办案中心 -->
+            <div class="module module-2-1 pull-left">
+                <div class="module-heading"><i class="module-heading-icon"></i>办案中心<a href="#" class="module-max"></a></div>
+                <div class="module-body">
+                    <div class="module-body-left">
+                        <div class="select-group clearfix">
+                            <div class="select">
+                                <b class="select-left"></b><span class="select-center">市局直属办案单位</span><b class="select-right"></b>
+                            </div>
+                            <div class="select">
+                                <b class="select-left"></b><span class="select-center">治安支队</span><b class="select-right"></b>
+                            </div>
+                        </div>
+                        <div class="ratio-group">
+                            <div class="title">办案场所</div>
+                            <div class="total">145</div>
+                            <div class="ratio clearfix">
+                                <div class="ratio-item ratio-use" style="width: 75%">
+                                    <div class="ratio-bar">105</div>
+                                    <div class="ratio-text">使用中</div>
+                                </div>
+                                <div class="ratio-item ratio-free" style="width: 25%">
+                                    <div class="ratio-bar">40</div>
+                                    <div class="ratio-text">未使用</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module-body-right">
+                        <div class="room-list">
+                            <div class="room-item active">本单位讯问室</div>
+                            <div class="room-item">讯问室A</div>
+                            <div class="room-item">讯问室B</div>
+                            <div class="room-item">讯问室C</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /办案中心 -->
+
+            <!-- 执法监督趋势分析 -->
+            <div class="module module-2-2 pull-right">
+                <div class="module-heading"><i class="module-heading-icon"></i>执法监督趋势分析<a href="#" class="module-max"></a></div>
+            </div>
+            <!-- /执法监督趋势分析 -->
+        </div>
+
+        <div class="row-3 clearfix">
+            <!-- 涉案财物中心 -->
+            <div class="module module-3-1 pull-left">
+                <div class="module-heading"><i class="module-heading-icon"></i>涉案财物中心<a href="#" class="module-max"></a></div>
+            </div>
+            <!-- /涉案财物中心 -->
+
+            <!-- 时限监督 -->
+            <div class="module module-3-2 pull-left">
+                <div class="module-heading"><i class="module-heading-icon"></i>时限监督<a href="#" class="module-max"></a></div>
+                <div class="module-body">
+                    <div class="sxjd-list">
+                        <div class="sxjd-item">
+                            <div class="num">1</div>
+                            <div class="text">办案环节超期</div>
+                        </div>
+                        <div class="sxjd-item">
+                            <div class="num">123</div>
+                            <div class="text">人员处理超期</div>
+                        </div>
+                        <div class="sxjd-item">
+                            <div class="num">456789012</div>
+                            <div class="text">涉案财物超期</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /时限监督 -->
+
+            <!-- 执法回告监督 -->
+            <div class="module module-3-3 pull-left">
+                <div class="module-heading"><i class="module-heading-icon"></i>执法回告监督<a href="#" class="module-max"></a></div>
+            </div>
+            <!-- /执法回告监督 -->
+
+            <!-- 中心地图 -->
+            <div class="module-3-4 map-center">
+                <!-- 圆环 -->
+                <div class="map-sector-list rotate infinite">
+                    <!-- 右半圆，依次排开 -->
+                    <div class="map-sector-item"><span class="map-sector-text">化工</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">轨道</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">水上</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">东湖</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">消防</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">视侦</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text"><!-- 占位符 --></span></div>
+                    <div class="map-sector-item"><span class="map-sector-text"><!-- 占位符 --></span></div>
+                    <div class="map-sector-item"><span class="map-sector-text"><!-- 占位符 --></span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">网安</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">出入境</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">禁毒</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">刑侦</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">治安</span></div>
+                    <div class="map-sector-item"><span class="map-sector-text">经侦</span></div>
+                    <button type="button" class="btn btn-info btn-sm map-sector-control">水平显示文字</button>
+                </div>
+                <!-- /圆环 -->
+
+                <div class="map-area-list">
+                <!--<div class="map-area-list" data-toggle="tooltip" data-placement="top" data-container="body" data-theme="tooltip-warning-dark" title="请点击文字选取地图区域">-->
+                    <div class="map-area-item map_jiangxia_x227y329_w236h238"><a class="map-hot" href="#">江夏</a></div>
+                    <div class="map-area-item map_hanyang_x196y227_w153h219"><a class="map-hot" href="#">汉阳</a></div>
+                    <div class="map-area-item map_huangpo_x224y8_w196h166"><a class="map-hot" href="#">黄陂</a></div>
+                    <div class="map-area-item map_xinzhou_x397y38_w170h279"><a class="map-hot" href="#">新洲</a></div>
+                    <div class="map-area-item map_hongshan_x311y228_w209h154"><a class="map-hot" href="#">洪山</a></div>
+                    <div class="map-area-item map_dongxihu_x89y85_w213h234"><a class="map-hot" href="#">东西湖</a></div>
+                    <div class="map-area-item map_qiaokou_x141y208_w118h93"><a class="map-hot" href="#">硚口</a></div>
+                    <div class="map-area-item map_jianghan_x216y185_w107h101"><a class="map-hot" href="#">江汉</a></div>
+                    <div class="map-area-item map_jiangan_x291y129_w91h110"><a class="map-hot" href="#">江岸</a></div>
+                    <div class="map-area-item map_qingshan_x375y168_w102h79"><a class="map-hot" href="#">青山</a></div>
+                    <div class="map-area-item map_caidian_x21y312_w187h171"><a class="map-hot" href="#">蔡甸</a></div>
+                    <div class="map-area-item map_zhuankou_x127y322_w116h185"><a class="map-hot" href="#">沌口</a></div>
+                    <div class="map-area-item map_wuchang_x332y226_w65h86"><a class="map-hot" href="#">武<br/>昌</a></div>
+                    <div class="map-area-item map_dongxin_x341y326_w117h53"><a class="map-hot" href="#">东新</a></div>
+                </div>
+
+            </div>
+            <!-- /中心地图 -->
+
+        </div>
+
+
+    </div>
+    <!-- /content -->
+</div>
+
+
+</body>
+</html>

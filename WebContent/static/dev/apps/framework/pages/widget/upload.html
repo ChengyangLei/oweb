@@ -1,0 +1,297 @@
+<article class="article article-theme-1">
+    <header>
+        <h3>在 JSP 中使用</h3>
+        <hr>
+    </header>
+    <main>
+<pre class="prettyprint">
+&lt;%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+&lt;html>
+&lt;head>
+    &lt;title>upload的引入&lt;/title>
+    &lt;script>
+
+        /* 	
+         访问：http://localhost:8080/test/upload
+         位置：/WEB-INF/views/test/upload.jsp 
+         依赖：（shim）"webuploader": [ "css!lib/webuploader/css/webuploader.css" ]
+         */
+        require( [ "webuploader", "jquery" ], function ( webuploader, $ ) {
+
+            $( document ).ready( function() {
+
+                var uploaderContainerId,
+                        uploaderOptions
+                        ;
+                uploaderContainerId = "uploaderContainer";
+                uploaderOptions = {
+                    // swf文件路径
+                    swf: '/Uploader.swf',
+
+                    // 文件接收服务端。
+                    server: '/Upload'
+                };
+                webuploader.pku.fileUpload( uploaderContainerId, uploaderOptions );
+            } );
+        } );
+
+    &lt;/script>
+&lt;/head>
+&lt;body>
+&lt;div id="uploaderContainer">&lt;/div>
+&lt;/body>
+&lt;/html>
+</pre>
+    </main>
+</article>
+<script>
+    //var BASE_URL = "../../../dev/modules/lib/webuploader/";
+    var BASE_URL = "";
+</script>
+<div class="page-upload">
+
+    <div class="callout callout-info">
+        <h4>Web Uploader</h4>
+        <p>1. WebUploader是由Baidu WebFE(FEX)团队开发的一个简单的以HTML5为主，FLASH为辅的现代文件上传组件。</p>
+        <p>2. 在现代的浏览器里面能充分发挥HTML5的优势，同时又不摒弃主流IE浏览器，沿用原来的FLASH运行时</p>
+        <p>3. 兼容IE6+，iOS 6+, android 4+</p>
+        <p>4. 参考 <a href="http://fex.baidu.com/webuploader/" target="_blank">Web Uploader</a></p>
+    </div>
+
+    <div class="callout callout-danger">
+        <p>使用webuploader对不可见元素进行初始化时，会失败。</p>
+    </div>
+
+    <article class="article">
+        <header>
+            <h3 class="text-muted">1. 示例</h3>
+            <hr>
+        </header>
+        <main>
+            <div class="callout callout-info">
+                文件上传示例、图片上传示例 涉及的代码已置入webuploader插件，
+                详情请参考 webuploader.fix.js 的FIX部分。
+            </div>
+            <div class="callout callout-info">
+                <h5>文件上传</h5>
+                1. 多文件、带进度条 <br/>
+                2. 可取消 “待上传文件”、“正在上传文件”、“上传失败的文件” <br/>
+                3. 可暂停 “正在上传文件”
+            </div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#example" data-toggle="tab">示例</a></li>
+                <li role="presentation"><a href="#code" data-toggle="tab">代码</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="example" style="padding: 10px;">
+                    <div id="uploaderContainer"></div>
+                    <script>
+                        +function () {
+                            var uploaderContainerId,
+                                uploaderOptions
+                                ;
+                            uploaderContainerId = "uploaderContainer";
+                            uploaderOptions = {
+                                // swf文件路径
+                                swf: BASE_URL + '/Uploader.swf',
+
+                                // 文件接收服务端。
+                                server: '/Upload'
+                            };
+                            WebUploader.pku.fileUpload( uploaderContainerId, uploaderOptions );
+                        } ();
+                    </script>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="code">
+<pre class="prettyprint">
+&lt;div id="uploaderContainer">&lt;/div>
+&lt;script>
+    var uploaderContainerId,
+            uploaderOptions
+            ;
+    uploaderContainerId = "uploaderContainer";
+    uploaderOptions = {
+        // swf文件路径
+        swf: BASE_URL + '/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '/Upload'
+    };
+    WebUploader.pku.fileUpload( uploaderContainerId, uploaderOptions );
+&lt;/script>    
+</pre>
+                </div>
+            </div>
+
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+
+            <div class="callout callout-info">
+                <h5>图片上传</h5>
+                1. 多文件、带进度条、带缩略图 <br/>
+                2. 可取消 “待上传文件”、“正在上传文件”、“上传失败的文件” <br/>
+                3. 可暂停 “正在上传文件” <br/>
+                4. 可通过拖拽添加图片 <br/>
+                5. 可通过粘贴来添加截屏的图片
+            </div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#example2" data-toggle="tab">示例</a></li>
+                <li role="presentation"><a href="#code2" data-toggle="tab">代码</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="example2" style="padding: 10px;">
+                    <div id="imageUploaderContainer"></div>
+                    <script>
+                        +function () {
+
+                            var uploaderContainerId,
+                                    uploaderOptions
+                                    ;
+                            uploaderContainerId = "imageUploaderContainer";
+                            uploaderOptions = {
+                                // swf文件路径
+                                swf: BASE_URL + '/Uploader.swf',
+
+                                // 文件接收服务端。
+                                server: '/Upload',
+                                // 自动上传。
+                                auto: false,
+                                // 只允许选择文件，可选。
+                                accept: {
+                                    title: 'Images',
+                                    extensions: 'gif,jpg,jpeg,bmp,png',
+                                    mimeTypes: 'image/*'
+                                },
+                                // 指定Drag And Drop拖拽的容器
+                                dnd: '#' + uploaderContainerId + ' .uploader-filelist',
+                                // 通过粘贴来添加截屏的图片
+                                paste: document.body
+                            };
+                            WebUploader.pku.imageUpload( uploaderContainerId, uploaderOptions );
+                        } ();
+                    </script>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="code2">
+<pre class="prettyprint">
+&lt;div id="imageUploaderContainer">&lt;/div>
+&lt;script>
+    var uploaderContainerId,
+            uploaderOptions
+            ;
+    uploaderContainerId = "imageUploaderContainer";
+    uploaderOptions = {
+        // swf文件路径
+        swf: BASE_URL + '/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '/Upload',
+        // 自动上传。
+        auto: false,
+        // 只允许选择文件，可选。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        },
+        // 指定Drag And Drop拖拽的容器
+        dnd: '#' + uploaderContainerId + ' .uploader-filelist',
+        // 通过粘贴来添加截屏的图片
+        paste: document.body
+    };
+    WebUploader.pku.imageUpload( uploaderContainerId, uploaderOptions );
+&lt;/script>    
+</pre>
+                </div>
+            </div>
+
+
+
+
+
+        </main>
+    </article>
+
+
+    <article class="article">
+        <header>
+            <h3 class="text-muted">2. 文档</h3>
+            <hr>
+        </header>
+        <main>
+
+            <div class="callout callout-warning">
+                参考：<a href="http://fex.baidu.com/webuploader/doc/index.html" target="_blank">官方文档</a>
+            </div>
+
+            <table class="table table-bordered table-condensed">
+                <caption>new Uploader( opts ) ⇒ Uploader</caption>
+                <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>类型 及默认值</th>
+                    <th>描述</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>dnd</td>
+                    <td>Selector: undefined</td>
+                    <td>指定Drag And Drop拖拽的容器；<br/>如果不指定，则不启动。</td>
+                </tr>
+                <tr>
+                    <td>disableGlobalDnd</td>
+                    <td>Boolean: false</td>
+                    <td>是否禁掉整个页面的拖拽功能，<br/>如果不禁用，图片拖进来的时候会默认被浏览器打开</td>
+                </tr>
+                <tr>
+                    <td>paste</td>
+                    <td>Selector: undefined</td>
+                    <td>指定监听paste事件的容器，如果不指定，不启用此功能。<br/>
+                        此功能为通过粘贴来添加截屏的图片。<br/>
+                        建议设置为document.body.</td>
+                </tr>
+                <tr>
+                    <td>pick</td>
+                    <td>Selector: undefined <br/>
+                        Object{ id，label，innerHTML，multiple }</td>
+                    <td>指定选择文件的按钮容器，不指定则不创建按钮。<br/>
+                        <kbd>id</kbd>: Seletor | dom，指定选择文件的按钮容器，不指定则不创建按钮。<br/>
+                        <kbd>label</kbd>: String，指定按钮文字。（请用 “innerHTML” 代替此属性的设置）<br/>
+                        <kbd>innerHTML</kbd>: String，指定按钮文字。不指定时优先从指定的容器中看是否自带文字。<br/>
+                        <kbd>multiple</kbd>: multiple，是否开起同时选择多个文件能力。<br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>accept</td>
+                    <td>Object{title,extensions,mimeTypes}: null</td>
+                    <td>指定接受哪些类型的文件。 <br/>
+                        <kbd>title</kbd>: String，文字描述。<br/>
+                        <kbd>extensions</kbd>: String，允许的文件后缀，不带点，多个用逗号分割<br/>
+                        <kbd>mimeTypes</kbd>: String，多个用逗号分割。<br/>
+                        <pre class="prettyprint">
+{
+    title: 'Images',
+    extensions: 'gif,jpg,jpeg,bmp,png',
+    mimeTypes: 'image/*'
+}
+                        </pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                </tr>
+            </table>
+
+        </main>
+    </article>
+
+</div>
+
+
