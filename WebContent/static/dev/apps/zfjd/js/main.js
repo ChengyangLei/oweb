@@ -128,20 +128,31 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ], function ( $, ech
                 var $this,
                     index,
                     dataItem,
+                    $ajpmListItem,
                     count,
                     lab,
-                    cont
+                    cont,
+                    animateClass
                     ;
                 $this = $( this );
                 index = $this.index();
                 dataItem = _sampleData[ index ];
                 count = 0;
+                animateClass = "fadeInRightBig animated";
+
+                _this.$ajpmListItem.removeClass( animateClass );
                 for ( lab in dataItem ) {
                     if ( ! dataItem.hasOwnProperty( lab ) ) {
                         continue;
                     }
                     cont = dataItem[ lab ];
-                    _this.$ajpmListItem.eq( count ).find( ".lab" ).text( lab ).end().find( ".cont" ).text( cont );
+                    $ajpmListItem = _this.$ajpmListItem.eq( count );
+                    $ajpmListItem.find( ".lab" ).text( lab ).end().find( ".cont" ).text( cont );
+                    +function ( $ajpmListItem ) {
+                        setTimeout( function () {
+                            $ajpmListItem.addClass( animateClass );
+                        }, 100 * ( count + 1 ) );
+                    }( $ajpmListItem );
                     count++;
                 }
                 $this.addClass( "active" ).siblings().removeClass( "active" );
