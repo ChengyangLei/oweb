@@ -164,6 +164,10 @@ public final class DicUtils {
 	}
 	public static void main( String[] args ) throws IOException {
 		// putAllDicToBos();
-		putCodeDicJsonToBos();
+		//putCodeDicJsonToBos();
+		ApplicationContext ac = new ClassPathXmlApplicationContext( "config/spring-common.xml" );
+		SysDicItemService sysDicItemService = ( SysDicItemService ) ac.getBean( SysDicItemService.class );
+		
+		DicUtils.putDicXmlToBos( "DIC_JOB_TYPE", sysDicItemService.getSysDicItemList( "DIC_JOB_TYPE" ) );
 	}
 }

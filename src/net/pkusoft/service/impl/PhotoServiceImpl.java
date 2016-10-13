@@ -57,5 +57,10 @@ public class PhotoServiceImpl implements PhotoService {
 		return photoMapper.getPhotoListByUserId( userId );
 	}
 
+	@Override
+	public List<Photo> getPhotoListByUserIdAndCategory( Integer userId, String category ) {
+		return photoMapper.getPhotoListByUserIdAndCategory( userId, category );
+	}
+
 
 }

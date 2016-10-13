@@ -45,20 +45,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <update id="update"  parameterType="net.pkusoft.model.SysUser">
         update sys_user
-        <set> 
-            <if test="loginName != null"> 
-                login_name =#{loginName}, 
-            </if> 
-            <if test="password != null"> 
-                password = #{password} 
-            </if> 
-            <if test="userName != null"> 
-                user_name = #{userName} 
-            </if> 
-            <if test="status != null"> 
-                status = #{status} 
-            </if>          
-        </set>  
+        set    
+        	login_name =#{loginName},
+            password = #{password}, 
+            user_name = #{userName}, 
+            status = #{status}
         where user_id = #{userId}
     </update>
 

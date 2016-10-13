@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.GdbaFuzerenMapper">
+	<resultMap id="BaseResultMap" type="net.pkusoft.model.GdbaFuzeren" >
+        <id column="fuzeren_id" property="fuzerenId" jdbcType="DECIMAL" />
+        <result column="user_id" property="userId" jdbcType="DECIMAL" />
+        <result column="xm" property="xm"  jdbcType="VARCHAR" />
+		<result column="gmsfzhm" property="gmsfzhm"  jdbcType="VARCHAR" />
+		<result column="xb" property="xb"  jdbcType="VARCHAR" />
+		<result column="mz" property="mz"  jdbcType="VARCHAR" />
+		<result column="csrq" property="csrq"  jdbcType="VARCHAR" />
+		<result column="whcd" property="whcd"  jdbcType="VARCHAR" />
+		<result column="zw" property="zw"  jdbcType="VARCHAR" />
+		<result column="lxdh" property="lxdh"  jdbcType="VARCHAR" />
+		<result column="sjjzdssxq" property="sjjzdssxq"  jdbcType="VARCHAR" />
+		<result column="sjjzdxz" property="sjjzdxz"  jdbcType="VARCHAR" />
+		<result column="hjdssxq" property="hjdssxq"  jdbcType="VARCHAR" />
+		<result column="hjdxz" property="hjdxz"  jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+		user_id,
+		xm,
+		gmsfzhm,
+		xb,
+		mz,
+		csrq,
+		whcd,
+		zw,
+		lxdh,
+		sjjzdssxq,
+		sjjzdxz,
+		hjdssxq,
+		hjdxz
+    </sql>
+	<select id="getTotalNum" resultType="int">
+		select count(fuzeren_id) from gdba_fuzeren 
+	</select>
+	
+	<select id="getGdbaFuzerenById" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_fuzeren where fuzeren_id = #{fuzerenId}
+	</select>
+	<select id="getGdbaFuzerenByUserId" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_fuzeren where user_id = #{userId}
+	</select>
+	
+	<select id="getGdbaFuzerenList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select * from gdba_fuzeren
+		limit #{start}, #{rowCount}
+	</select>
+
+	<insert id="insert"  parameterType="net.pkusoft.model.GdbaFuzeren" useGeneratedKeys="true" keyProperty="fuzerenId">
+		insert into gdba_fuzeren (
+			<include refid="Base_Column_List" />
+		)
+		values(	
+			#{userId},
+			#{xm},
+			#{gmsfzhm},
+			#{xb},
+			#{mz},
+			#{csrq},
+			#{whcd},
+			#{zw},
+			#{lxdh},
+			#{sjjzdssxq},
+			#{sjjzdxz},
+			#{hjdssxq},
+			#{hjdxz}
+		)
+	</insert> 
+	
+	<update id="update"  parameterType="net.pkusoft.model.GdbaFuzeren">
+		update gdba_fuzeren
+		set 
+			user_id = #{userId},
+			xm = #{xm},
+			gmsfzhm = #{gmsfzhm},
+			xb = #{xb},
+			mz = #{mz},
+			csrq = #{csrq},
+			whcd = #{whcd},
+			zw = #{zw},
+			lxdh = #{lxdh},
+			sjjzdssxq = #{sjjzdssxq},
+			sjjzdxz = #{sjjzdxz},
+			hjdssxq = #{hjdssxq},
+			hjdxz = #{hjdxz}
+			
+		where fuzeren_id = #{fuzerenId}
+	</update>
+	
+	<delete id="delete" parameterType="int">  
+        delete from gdba_fuzeren where fuzeren_id = #{fuzerenId}  
+    </delete>
+      
+</mapper>

@@ -7,7 +7,7 @@ public class Photo {
 	private String type;
 	private Long size;
 	private byte[] data;
-	
+	private String category;
 	
 	
 	public Photo( Integer photoId, Integer userId, String name, String type, Long size, byte[] data ) {
@@ -31,6 +31,14 @@ public class Photo {
 
 	public Photo() {
 		super();
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory( String category ) {
+		this.category = category;
 	}
 
 	public Integer getPhotoId() {

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.GdbaGdMapper">
+	<resultMap id="BaseResultMap" type="net.pkusoft.model.GdbaGd" >
+        <id column="gd_id" property="gdId" jdbcType="DECIMAL" />
+        <result column="gsbm" property="gsbm" jdbcType="DECIMAL" />
+        <result column="category" property="category" jdbcType="VARCHAR" />
+		<result column="frgdjjlx" property="frgdjjlx" jdbcType="VARCHAR" />
+		<result column="frxzzssxq" property="frxzzssxq" jdbcType="VARCHAR" />
+		<result column="frxzzxz" property="frxzzxz" jdbcType="VARCHAR" />
+		<result column="frlxdh" property="frlxdh" jdbcType="VARCHAR" />
+		<result column="frxm" property="frxm" jdbcType="VARCHAR" />
+		<result column="frnl" property="frnl" jdbcType="VARCHAR" />
+		<result column="frxb" property="frxb" jdbcType="VARCHAR" />
+		<result column="frgdyyzz" property="frgdyyzz" jdbcType="VARCHAR" />
+		<result column="frgdshxydm" property="frgdshxydm" jdbcType="VARCHAR" />
+		<result column="zrrmc" property="zrrmc" jdbcType="VARCHAR" />
+		<result column="zrrgmsfzhm" property="zrrgmsfzhm" jdbcType="VARCHAR" />
+		<result column="zrrcsrq" property="zrrcsrq" jdbcType="VARCHAR" />
+		<result column="zrrxb" property="zrrxb" jdbcType="VARCHAR" />
+		<result column="zrrmz" property="zrrmz" jdbcType="VARCHAR" />
+		<result column="zrrhjdssxq" property="zrrhjdssxq" jdbcType="VARCHAR" />
+		<result column="zrrhjdxz" property="zrrhjdxz" jdbcType="VARCHAR" />
+		<result column="zrrxzzssxq" property="zrrxzzssxq" jdbcType="VARCHAR" />
+		<result column="zrrxzzxz" property="zrrxzzxz" jdbcType="VARCHAR" />
+		<result column="wzxm" property="wzxm" jdbcType="VARCHAR" />
+		<result column="wzzwm" property="wzzwm" jdbcType="VARCHAR" />
+		<result column="wzzywx" property="wzzywx" jdbcType="VARCHAR" />
+		<result column="wzzywm" property="wzzywm" jdbcType="VARCHAR" />
+		<result column="wzzjlx" property="wzzjlx" jdbcType="VARCHAR" />
+		<result column="wzzjhm" property="wzzjhm" jdbcType="VARCHAR" />
+		<result column="wzcsrq" property="wzcsrq" jdbcType="VARCHAR" />
+		<result column="wzxb" property="wzxb" jdbcType="VARCHAR" />
+		<result column="wzgj" property="wzgj" jdbcType="VARCHAR" />
+		<result column="wzxzzssxq" property="wzxzzssxq" jdbcType="VARCHAR" />
+		<result column="wzxzzxz" property="wzxzzxz" jdbcType="VARCHAR" />
+		<result column="czje" property="czje" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+    	gsbm,
+		category,
+		frgdmc,
+		frgdjjlx,
+		frxzzssxq,
+		frxzzxz,
+		frlxdh,
+		frxm,
+		frnl,
+		frxb,
+		frgdyyzz,
+		frgdshxydm,
+		zrrmc,
+		zrrgmsfzhm,
+		zrrcsrq,
+		zrrxb,
+		zrrmz,
+		zrrhjdssxq,
+		zrrhjdxz,
+		zrrxzzssxq,
+		zrrxzzxz,
+		wzxm,
+		wzzwm,
+		wzzywx,
+		wzzywm,
+		wzzjlx,
+		wzzjhm,
+		wzcsrq,
+		wzxb,
+		wzgj,
+		wzxzzssxq,
+		wzxzzxz,
+		czje
+    </sql>
+    
+	<select id="getTotalNum" resultType="int">
+		select count(gd_id) from gdba_gd 
+	</select>
+	
+	<select id="getGdbaGdById" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_gd where gd_id = #{gdId}
+	</select>
+	<select id="getGdbaGdByCategoryAndGsbm" resultMap="BaseResultMap">
+		select * from gdba_gd where category = #{0} and gsbm = #{1}
+	</select>
+	<select id="getGdbaGdByGsbm" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_gd where gsbm = #{gsbm}
+	</select>
+	
+	<select id="getGdbaGdList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select * from gdba_gd
+		limit #{start}, #{rowCount}
+	</select>
+
+	<insert id="insert"  parameterType="net.pkusoft.model.GdbaGd" useGeneratedKeys="true" keyProperty="gdId">
+		insert into gdba_gd (
+			<include refid="Base_Column_List" />
+		)
+		values(
+			#{gsbm},
+			#{category},
+			#{frgdmc},
+			#{frgdjjlx},
+			#{frxzzssxq},
+			#{frxzzxz},
+			#{frlxdh},
+			#{frxm},
+			#{frnl},
+			#{frxb},
+			#{frgdyyzz},
+			#{frgdshxydm},
+			#{zrrmc},
+			#{zrrgmsfzhm},
+			#{zrrcsrq},
+			#{zrrxb},
+			#{zrrmz},
+			#{zrrhjdssxq},
+			#{zrrhjdxz},
+			#{zrrxzzssxq},
+			#{zrrxzzxz},
+			#{wzxm},
+			#{wzzwm},
+			#{wzzywx},
+			#{wzzywm},
+			#{wzzjlx},
+			#{wzzjhm},
+			#{wzcsrq},
+			#{wzxb},
+			#{wzgj},
+			#{wzxzzssxq},
+			#{wzxzzxz},
+			#{czje}
+		)
+	</insert> 
+	
+	<update id="update"  parameterType="net.pkusoft.model.GdbaGd">
+		update gdba_gd
+		set 
+			gsbm = #{gsbm},
+			category = #{category},
+			frgdmc = #{frgdmc},
+			frgdjjlx = #{frgdjjlx},
+			frxzzssxq = #{frxzzssxq},
+			frxzzxz = #{frxzzxz},
+			frlxdh = #{frlxdh},
+			frxm = #{frxm},
+			frnl = #{frnl},
+			frxb = #{frxb},
+			frgdyyzz = #{frgdyyzz},
+			frgdshxydm = #{frgdshxydm},
+			zrrmc = #{zrrmc},
+			zrrgmsfzhm = #{zrrgmsfzhm},
+			zrrcsrq = #{zrrcsrq},
+			zrrxb = #{zrrxb},
+			zrrmz = #{zrrmz},
+			zrrhjdssxq = #{zrrhjdssxq},
+			zrrhjdxz = #{zrrhjdxz},
+			zrrxzzssxq = #{zrrxzzssxq},
+			zrrxzzxz = #{zrrxzzxz},
+			wzxm = #{wzxm},
+			wzzwm = #{wzzwm},
+			wzzywx = #{wzzywx},
+			wzzywm = #{wzzywm},
+			wzzjlx = #{wzzjlx},
+			wzzjhm = #{wzzjhm},
+			wzcsrq = #{wzcsrq},
+			wzxb = #{wzxb},
+			wzgj = #{wzgj},
+			wzxzzssxq = #{wzxzzssxq},
+			wzxzzxz = #{wzxzzxz},
+			czje = #{czje}
+		where gd_id = #{gdId}
+	</update>
+	
+	<delete id="delete" parameterType="int">  
+        delete from gdba_gd where gd_id = #{id}  
+    </delete>  
+
+</mapper>

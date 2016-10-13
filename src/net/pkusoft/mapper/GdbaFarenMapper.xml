@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.GdbaFarenMapper">
+	<resultMap id="BaseResultMap" type="net.pkusoft.model.GdbaFaren" >
+        <id column="faren_id" property="farenId" jdbcType="DECIMAL" />
+        <result column="user_id" property="userId" jdbcType="DECIMAL" />
+        <result column="xm"  property="xm" jdbcType="VARCHAR" />
+		<result column="zjlx"  property="zjlx" jdbcType="VARCHAR" />
+		<result column="zjhm"  property="zjhm" jdbcType="VARCHAR" />
+		<result column="csrq"  property="csrq" jdbcType="VARCHAR" />
+		<result column="xb"  property="xb" jdbcType="VARCHAR" />
+		<result column="gj"  property="gj" jdbcType="VARCHAR" />
+		<result column="mz"  property="mz" jdbcType="VARCHAR" />
+		<result column="zzmm"  property="zzmm" jdbcType="VARCHAR" />
+		<result column="whcd"  property="whcd" jdbcType="VARCHAR" />
+		<result column="sjjzdssxq"  property="sjjzdssxq" jdbcType="VARCHAR" />
+		<result column="sjjzdxz"  property="sjjzdxz" jdbcType="VARCHAR" />
+		<result column="hjdssxq"  property="hjdssxq" jdbcType="VARCHAR" />
+		<result column="hjdxz"  property="hjdxz" jdbcType="VARCHAR" />
+		<result column="bgdh"  property="bgdh" jdbcType="VARCHAR" />
+		<result column="sjhm"  property="sjhm" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+    	user_id,
+    	xm,
+		zjlx,
+		zjhm,
+		csrq,
+		xb,
+		gj,
+		mz,
+		zzmm,
+		whcd,
+		sjjzdssxq,
+		sjjzdxz,
+		hjdssxq,
+		hjdxz,
+		bgdh,
+		sjhm
+    </sql>
+    
+	<select id="getTotalNum" resultType="int">
+		select count(gd_id) from gdba_faren 
+	</select>
+	
+	<select id="getGdbaFarenById" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_faren where faren_id = #{farenId}
+	</select>
+	<select id="getGdbaFarenByUserId" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_faren where user_id = #{userId}
+	</select>
+	
+	<select id="getGdbaFarenList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select * from gdba_faren
+		limit #{start}, #{rowCount}
+	</select>
+
+	<insert id="insert"  parameterType="net.pkusoft.model.GdbaFaren" useGeneratedKeys="true" keyProperty="farenId">
+		insert into gdba_faren (
+			<include refid="Base_Column_List" />
+		)
+		values(
+			#{userId},
+			#{xm},
+			#{zjlx},
+			#{zjhm},
+			#{csrq},
+			#{xb},
+			#{gj},
+			#{mz},
+			#{zzmm},
+			#{whcd},
+			#{sjjzdssxq},
+			#{sjjzdxz},
+			#{hjdssxq},
+			#{hjdxz},
+			#{bgdh},
+			#{sjhm}
+		)
+	</insert> 
+	
+	<update id="update"  parameterType="net.pkusoft.model.GdbaFaren">
+		update gdba_faren
+		set 
+			user_id = #{userId},
+			xm = #{xm},
+			zjlx = #{zjlx},
+			zjhm = #{zjhm},
+			csrq = #{csrq},
+			xb = #{xb},
+			gj = #{gj},
+			mz = #{mz},
+			zzmm = #{zzmm},
+			whcd = #{whcd},
+			sjjzdssxq = #{sjjzdssxq},
+			sjjzdxz = #{sjjzdxz},
+			hjdssxq = #{hjdssxq},
+			hjdxz = #{hjdxz},
+			bgdh = #{bgdh},
+			sjhm = #{sjhm}
+		where faren_id = #{farenId}
+	</update>
+	
+	<delete id="delete" parameterType="int">  
+        delete from gdba_faren where faren_id = #{farenId}  
+    </delete>  
+
+</mapper>

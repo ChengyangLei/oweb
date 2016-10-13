@@ -46,6 +46,7 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	public SysUser validateLogin( SysUser sysUser ) {
 		String loginName = StringUtils.trim( sysUser.getLoginName() );
+		sysUser.setLoginName( loginName );
 		return sysUserMapper.getSysUserByLoginNameAndPassword( sysUser );
 	}
 

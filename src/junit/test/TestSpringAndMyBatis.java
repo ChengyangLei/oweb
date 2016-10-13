@@ -1,12 +1,10 @@
 package junit.test;
 
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
-import javax.imageio.ImageIO;
+import java.util.List;
 
 import net.pkusoft.model.GdbaCompany;
 import net.pkusoft.model.Photo;
@@ -86,6 +84,13 @@ public class TestSpringAndMyBatis {
 		System.out.println( sysUser.getUserId() );
 	}
 	@Test
+	public void test_sysUserServiceUpdate() {
+		SysUserService sysUserService = ac.getBean( SysUserService.class );
+		SysUser sysUser = sysUserService.getSysUserById( 10 );
+		sysUser.setStatus( "9" );
+		sysUserService.update( sysUser );
+	}
+	@Test
 	public void test_photoService() throws Exception {
 		PhotoService photoService = ac.getBean( PhotoService.class );
 		String path = "/Users/forwardNow/Downloads/201608/coin-yuan.png";
@@ -117,6 +122,14 @@ public class TestSpringAndMyBatis {
 		
 		fis.close();
 		fos.close();
+	}
+	@Test
+	public void test_photoService_2() throws Exception {
+		PhotoService photoService = ac.getBean( PhotoService.class );
+		List<Photo> photoList = photoService.getPhotoListByUserIdAndCategory( 2, "01");
+		for( Photo photo : photoList ) {
+			System.out.println( photo.getName() );
+		}
 	}
 	
 }

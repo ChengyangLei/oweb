@@ -50,7 +50,7 @@ public class PhotoController {
 	 */
 	@ResponseBody
 	@RequestMapping( value = "/photo/upload", method = RequestMethod.POST )
-	public JsonResult photoUpload( MultipartFile file, HttpSession session ) {
+	public JsonResult photoUpload( MultipartFile file, String category, HttpSession session ) {
 		JsonResult jsonResult;
 		try {
 			Assert.notNull( file );
@@ -61,6 +61,7 @@ public class PhotoController {
 			type = fileName.indexOf( "." ) != -1 ? fileName.substring( fileName.lastIndexOf( "." ) + 1, fileName.length() ) : null;
 
 			Photo photo = new Photo( user.getUserId(), fileName, type, file.getSize(), file.getBytes() );
+			photo.setCategory( category );
 			photoService.insert( photo );
 			return jsonResult;
 		} catch ( Exception e ) {

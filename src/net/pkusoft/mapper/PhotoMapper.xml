@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="type" property="type" jdbcType="VARCHAR" />
         <result column="size" property="size" jdbcType="DECIMAL" />
+        <result column="category" property="category" jdbcType="VARCHAR" />
     </resultMap>
     
     <resultMap id="DataResultMap" type="net.pkusoft.model.Photo" extends="BaseResultMap" >
@@ -21,7 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		user_id,
 		name,
 		type,
-		size
+		size,
+		category
     </sql>
     
     <select id="getTotalNum" resultType="int">
@@ -44,6 +46,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select <include refid="Base_Column_List" />  
 		from photo where user_id = #{userId}
     </select>
+    <select id="getPhotoListByUserIdAndCategory" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />  
+		from photo 
+		where user_id = #{0} and category =#{1}
+    </select>
 
     <insert id="insert"  parameterType="net.pkusoft.model.Photo" useGeneratedKeys="true" keyProperty="photoId">
         insert into photo (
@@ -51,6 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             name,
             type,
             size,
+            category,
             data
         )
         values(
@@ -58,6 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{name},
             #{type},
             #{size},
+            #{category},
             #{data,jdbcType=BLOB}
         )
     </insert> 

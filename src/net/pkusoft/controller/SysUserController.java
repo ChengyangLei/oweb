@@ -1,5 +1,7 @@
 package net.pkusoft.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import net.pkusoft.model.SysUser;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller  
 public class SysUserController {
@@ -46,7 +49,7 @@ public class SysUserController {
 				throw new RuntimeException();
 			}
 			
-			this.processToken( sysUser );
+			processToken( sysUser );
 			
 			jsonResult.setSuccess( true );
 			jsonResult.setData( "/" );
@@ -60,6 +63,8 @@ public class SysUserController {
 		}
 	}
 	
+	
+	
 	@RequestMapping("/user/logout")
 	public String logout(HttpSession session) {
 		Subject subject = SecurityUtils.getSubject();
@@ -70,7 +75,7 @@ public class SysUserController {
 		logger.info( "退出登录。" );
 		return "redirect:/";
 	}	
-	private void processToken( SysUser sysUser ) {
+	public static void processToken( SysUser sysUser ) {
 		
 		String loginName = sysUser.getLoginName();
 		String password = sysUser.getPassword();

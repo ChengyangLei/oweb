@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.pkusoft.mapper.GdbaFarenResumeMapper">
+	<resultMap id="BaseResultMap" type="net.pkusoft.model.GdbaFarenResume" >
+        <id column="resume_id" property="resumeId" jdbcType="DECIMAL" />
+        <result column="faren_id" property="farenId" jdbcType="DECIMAL" />
+        <result column="start" property="start" jdbcType="VARCHAR" />
+        <result column="end" property="end" jdbcType="VARCHAR" />
+        <result column="zwlb" property="zwlb" jdbcType="VARCHAR" />
+        <result column="zwmc" property="zwmc" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+    	faren_id,
+		gsmc,
+		start,
+		end,
+		zwlb,
+		zwmc
+    </sql>
+    
+	<select id="getTotalNum" resultType="int">
+		select count(resume_id) from gdba_faren_resume 
+	</select>
+	
+	<select id="getGdbaFarenResumeById" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_faren_resume where resume_id = #{resumeId}
+	</select>
+	<select id="getGdbaFarenResumeByFarenId" parameterType="int" resultMap="BaseResultMap">
+		select * from gdba_faren_resume where faren_id = #{farenId}
+	</select>
+	
+	<select id="getGdbaFarenResumeList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+		select * from gdba_faren_resume
+		limit #{start}, #{rowCount}
+	</select>
+
+	<insert id="insert"  parameterType="net.pkusoft.model.GdbaFarenResume" useGeneratedKeys="true" keyProperty="resumeId">
+		insert into gdba_faren_resume (
+			<include refid="Base_Column_List" />
+		)
+		values(
+			#{farenId},
+			#{gsmc},
+			#{start},
+			#{end},
+			#{zwlb},
+			#{zwmc}
+		)
+	</insert> 
+	
+	<update id="update"  parameterType="net.pkusoft.model.GdbaFarenResume">
+		update gdba_faren_resume
+		set 
+			faren_id = #{farenId},
+			gsmc = #{gsmc},
+			start = #{start},
+			end = #{end},
+			zwlb = #{zwlb},
+			zwmc = #{zwmc}
+		where resume_id = #{resumeId}
+	</update>
+	
+	<delete id="delete" parameterType="int">  
+        delete from gdba_faren_resume where resume_id = #{resumeId}  
+    </delete>  
+
+</mapper>

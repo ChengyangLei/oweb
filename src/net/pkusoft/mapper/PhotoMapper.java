@@ -16,6 +16,8 @@ public interface PhotoMapper {
 	
 	List<Photo> getPhotoListByUserId(Integer userId);
 	
+	List<Photo> getPhotoListByUserIdAndCategory(Integer userId, String category);
+	
 	int insert( Photo photo );
 	
 	int update( Photo photo );

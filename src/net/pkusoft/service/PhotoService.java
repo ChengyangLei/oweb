@@ -3,7 +3,6 @@ package net.pkusoft.service;
 import java.util.List;
 
 import net.pkusoft.model.Photo;
-import net.pkusoft.model.SysUser;
 
 public interface PhotoService {
 
@@ -20,4 +19,6 @@ public interface PhotoService {
 	int update( Photo photo );
 
 	List<Photo> getPhotoListByUserId( Integer userId );	
+	
+	List<Photo> getPhotoListByUserIdAndCategory(Integer userId, String category);	
 }
