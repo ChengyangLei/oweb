@@ -15,6 +15,7 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
     // 登陆页
     LoginPage = {
         $container: ".page-login",
+        $form: ".form",
         $submitBtn: ".btn-submit",
         $inputControl: ".input-control",
         init: function () {
@@ -23,6 +24,7 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
         },
         render: function () {
             this.$container = $( this.$container );
+            this.$form = $( this.$form, this.$container );
             this.$submitBtn = $( this.$submitBtn, this.$container );
             this.$inputControl = $( this.$inputControl, this.$container );
         },
@@ -41,11 +43,19 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
                 $( this ).parent().removeClass( animateClass );
             } );
 
+            // 提交按钮：添加按钮
             _this.$submitBtn.hover( function () {
                 $( this ).addClass( animateClass );
             }, function () {
                 $( this ).removeClass( animateClass );
             });
+
+            // 敲回车键，进行表单提交
+            $doc.on( "keydown", function ( event ) {
+                if ( event.keyCode === 13 ) {
+                    _this.$form.submit();
+                }
+            } );
         }
     };
 
