@@ -6,12 +6,50 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
         Module_1_1, // 案管中心
         Module_1_2, // 执法音视频
         Module_2_1, // 办案中心
-        IndexPage
+        IndexPage,
+        LoginPage
     ;
 
     $doc = $( document );
 
-    // 页面框架
+    // 登陆页
+    LoginPage = {
+        $container: ".page-login",
+        $submitBtn: ".btn-submit",
+        $inputControl: ".input-control",
+        init: function () {
+            this.render();
+            this.bind();
+        },
+        render: function () {
+            this.$container = $( this.$container );
+            this.$submitBtn = $( this.$submitBtn, this.$container );
+            this.$inputControl = $( this.$inputControl, this.$container );
+        },
+        bind: function () {
+            var _this,
+                animateClass
+            ;
+            _this = this;
+
+            // 输入控件：focus时，添加动画
+            animateClass = "pulse animated";
+
+            _this.$inputControl.on( "focus", function () {
+                $( this ).parent().addClass( animateClass );
+            } ).on( "blur", function () {
+                $( this ).parent().removeClass( animateClass );
+            } );
+
+            _this.$submitBtn.hover( function () {
+                $( this ).addClass( animateClass );
+            }, function () {
+                $( this ).removeClass( animateClass );
+            });
+        }
+    };
+
+    // 首页
     IndexPage = {
         $container: ".page-index",
         $top: ".top",
@@ -164,6 +202,10 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
                 myChart,
                 option
                 ;
+
+            if ( this.$pieChartContainer ) {
+                return;
+            }
 
             target = this.$pieChartContainer.get(0);
 
@@ -459,7 +501,15 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
 
     $doc.ready( function() {
 
-        IndexPage.init();
+        $('[data-toggle="tooltip"]').tooltip();
+
+        if ( $doc.find( LoginPage.$container ).size() !== 0 ) {
+            LoginPage.init();
+        }
+
+        if ( $doc.find( IndexPage.$container ).size() !== 0 ) {
+            IndexPage.init();
+        }
 
     } );
 
