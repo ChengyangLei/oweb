@@ -548,10 +548,16 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap", "sweet-alert" ],
         },
         bind: function () {
             this.$container.find( ".main-menu-item-heading" ).on( "click", function () {
-                var $this
+                var $this,
+                    $parent
                 ;
-                $this = $( this );
-                $this.parent().filter( ".has-sub-menu" ).addClass( "active" ).siblings().removeClass( "active" );
+                $this = $( this )
+                $parent = $this.parent();
+                if ( $parent.is( ".active" ) ) {
+                    $parent.removeClass( "active" );
+                    return;
+                }
+                $parent.filter( ".has-sub-menu" ).addClass( "active" ).siblings().removeClass( "active" );
             } );
         }
     };
