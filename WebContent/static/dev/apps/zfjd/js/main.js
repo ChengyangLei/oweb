@@ -1,4 +1,5 @@
-require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ], function ( $, echarts, _echartsTheme, _bs ) {
+require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
+    function ( $, echarts, _echartsTheme, _bs ) {
 
     var $doc,
         Map,// 地图，module-3-4
@@ -138,7 +139,7 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ], function ( $, ech
                 index = $this.index();
                 dataItem = _sampleData[ index ];
                 count = 0;
-                animateClass = "fadeInRightBig animated";
+                animateClass = "fadeInRight animated";
 
                 _this.$ajpmListItem.removeClass( animateClass );
                 for ( lab in dataItem ) {
@@ -349,7 +350,8 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ], function ( $, ech
             this.$sectorControl = $( this.$sectorControl, this.$container );
         },
         bind: function() {
-            var _this
+            var _this,
+                isDisabledHandler
             ;
             _this = this;
             // 热点地图-区域块：动画
@@ -377,29 +379,53 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ], function ( $, ech
             );
 
             // 圆环条目：鼠标进入，使文字水平排列
-            this.$sectorItem.on( "mouseenter", function () {
-                var $this,
-                    index,
-                    degree
-                    ;
-                // &:nth-child(1) { transform : rotate(12+24*0deg); }
-                $this = $( this );
-                index = $this.index();
-                degree = 360 - ( 12 + index * 24 );
-                $this.find(".map-sector-text").css( "transform", "rotate(" + degree + "deg)" );
-
+            this.$sectorItem.on( "mouseenter", mouseenterHandler );
+                function mouseenterHandler() {
+                    var $this,
+                        index,
+                        degree
+                        ;
+                    // &:nth-child(1) { transform : rotate(12+24*0deg); }
+                    $this = $( this );
+                    index = $this.index();
+                    degree = 360 - ( 12 + index * 24 );
+                    $this.find(".map-sector-text").css( "transform", "rotate(" + degree + "deg)" );
+                }
             // 圆环条目：鼠标离开，使文字还原
-            } ).on( "mouseleave", function() {
-                $(this).find(".map-sector-text").css( "transform", "rotate(0deg)" );
-
+            this.$sectorItem.on( "mouseleave", mouseleaveHandler );
+                function mouseleaveHandler() {
+                    $(this).find(".map-sector-text").css( "transform", "rotate(0deg)" );
+                }
             // 圆环条目：单击后添加 active 状态
-            } ).on( "click", function() {
-                $( this ).addClass( "active" ).siblings().removeClass( "active" );
+            this.$sectorItem.on( "click", function() {
+                var $this
+                ;
+                $this = $( this );
+                // 取消其他元素的active状态，并恢复其改变文字排列的事件
+                $this.siblings( ".active" ).removeClass( "active" ).each( function() {
+                    if ( isDisabledHandler ) {
+                        return false;
+                    }
+                    if ( $( this ).data( "isCanceledHandler" ) === true ) {
+                        $( this ).on( "mouseenter", mouseenterHandler )
+                                 .on( "mouseleave", mouseleaveHandler )
+                                 .trigger( "mouseleave" );
+                    }
+                } );
+
+                $this.addClass( "active" );
+
+                // 同时，使文字水平排列：取消改变文字排列的事件，并添加标志“isCanceledHandler”
+                $this.trigger( "mouseenter" );
+                $this.off( "mouseleave mouseenter" );
+                $this.data( "isCanceledHandler", true );
             } );
+
 
             // 圆环条目控制器：点击后，使圆环上所有文字水平显示，点击后消失
             this.$sectorControl.on( "click", function() {
-                _this.$sectorItem.trigger( "mouseenter" ).off( "mouseleave" );
+                _this.$sectorItem.trigger( "mouseenter" ).off( "mouseleave mouseenter" );
+                isDisabledHandler = true;
                 $( this ).hide(500);
             } );
         },
