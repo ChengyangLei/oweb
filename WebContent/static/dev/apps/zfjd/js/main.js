@@ -7,7 +7,8 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap", "sweet-alert" ],
         Module_1_2, // 执法音视频
         Module_2_1, // 办案中心
         IndexPage,
-        LoginPage
+        LoginPage,
+        Sidebar
     ;
 
     $doc = $( document );
@@ -66,6 +67,7 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap", "sweet-alert" ],
                         type: "error",
                         confirmButtonText: "关闭",
                         confirmButtonClass: "btn-info"
+                    }, function ( isConfirm ) {
                     } );
                     return false;
                 }
@@ -535,6 +537,25 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap", "sweet-alert" ],
         }
     };
 
+    Sidebar = {
+        $container: ".page-sidebar",
+        init: function () {
+            this.render();
+            this.bind();
+        },
+        render: function () {
+            this.$container = $( this.$container );
+        },
+        bind: function () {
+            this.$container.find( ".main-menu-item-heading" ).on( "click", function () {
+                var $this
+                ;
+                $this = $( this );
+                $this.parent().filter( ".has-sub-menu" ).addClass( "active" ).siblings().removeClass( "active" );
+            } );
+        }
+    };
+
     $doc.ready( function() {
 
         $('[data-toggle="tooltip"]').tooltip();
@@ -545,6 +566,9 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap", "sweet-alert" ],
 
         if ( $doc.find( IndexPage.$container ).size() !== 0 ) {
             IndexPage.init();
+        }
+        if ( $doc.find( Sidebar.$container ).size() !== 0 ) {
+            Sidebar.init();
         }
 
     } );
