@@ -1,5 +1,5 @@
-require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
-    function ( $, echarts, _echartsTheme, _bs ) {
+require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap", "sweet-alert" ],
+    function ( $, echarts, _echartsTheme, _bs, _sweetAlert ) {
 
     var $doc,
         Map,// 地图，module-3-4
@@ -15,7 +15,7 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
     // 登陆页
     LoginPage = {
         $container: ".page-login",
-        $form: ".form",
+        $form: ".login-form",
         $submitBtn: ".btn-submit",
         $inputControl: ".input-control",
         init: function () {
@@ -53,8 +53,34 @@ require( [ "jquery" ,"echarts", "echartsTheme", "bootstrap" ],
             // 敲回车键，进行表单提交
             $doc.on( "keydown", function ( event ) {
                 if ( event.keyCode === 13 ) {
-                    _this.$form.submit();
+                    //_this.$form.submit();
                 }
+            } );
+
+            _this.$form.on( "submit", function () {
+
+                if ( ! _this.$inputControl.eq( 0 ).val() ) {
+                    swal( {
+                        title: "错误!",
+                        text: "请输入用户名!",
+                        type: "error",
+                        confirmButtonText: "关闭",
+                        confirmButtonClass: "btn-info"
+                    } );
+                    return false;
+                }
+
+                if ( ! _this.$inputControl.eq( 1 ).val() ) {
+                    swal( {
+                        title: "错误!",
+                        text: "请输入密码!",
+                        type: "error",
+                        confirmButtonText: "关闭",
+                        confirmButtonClass: "btn-info"
+                    } );
+                    return false;
+                }
+
             } );
         }
     };
